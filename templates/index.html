@@ -3,22 +3,64 @@
 {% block body %}
 <main class="wrap">
 
-    <table class="table table-bordered table-striped bg-white">
+    <table class="table table-bordered table-striped bg-white shadow-m">
         <thead class="bg-primary text-white">
             <tr>
                 <td>Nome</td>
                 <td>Data de admissão</td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
             {% for person in persons %}
             <tr>
-                <td>{{ person.0.split(" ")[0] }}</td>
                 <td>{{ person.1 }}</td>
+                <td>{{ person.2 }}</td>
+                <td><a href="/delete/{{person.0}}" class="btn btn-danger">Excluir</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="card shadow mt-2 p-3 p-lg-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message == "Você precisa preencher todos os dados" %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="card-content">
+            <h2 class="h3 mb-3 text-center">Adicionar pessoa</h2>
+            <form action="/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Nome" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" name="date" class="form-control" required>
+                </div>
+                <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-success btn-block">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 </main>
 {% endblock %}
