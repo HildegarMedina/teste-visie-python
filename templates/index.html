@@ -13,9 +13,11 @@
         </thead>
         <tbody>
             {% for person in persons %}
+            {% set name = person.1.split(' ')[0] %}
+            {% set date = person.2.strftime('%d-%m-%Y') %}
             <tr>
-                <td>{{ person.1 }}</td>
-                <td>{{ person.2 }}</td>
+                <td>{{ name }}</td>
+                <td>{{ date }}</td>
                 <td><a href="/delete/{{person.0}}" class="btn btn-danger">Excluir</a></td>
             </tr>
             {% endfor %}

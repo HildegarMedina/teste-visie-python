@@ -1,6 +1,5 @@
 #Modules
 from flask import Flask, render_template, request, flash, redirect, url_for
-from datetime import datetime
 from flask_mysqldb import MySQL
 
 #Initializations
@@ -26,8 +25,6 @@ def index():
     cur = mysql.connection.cursor()
     cur.execute("SELECT id_pessoa, nome , data_admissao FROM pessoas") #id_pessoa = id
     data = cur.fetchall()
-
-
     
     #Render
     return render_template("index.html", persons = data)
@@ -47,7 +44,6 @@ def addPerson():
             
             #Format date
             datatemp = date.split("-")
-            date = datatemp[0] + "/" + datatemp[2] + "/" + datatemp[1]
             
             #Cursor
             cur = mysql.connection.cursor()
@@ -63,8 +59,6 @@ def addPerson():
 #Delete person
 @app.route("/delete/<id>")
 def deletePerson(id):
-
-    id = str(id)
 
     #Cursor
     cur = mysql.connection.cursor()
