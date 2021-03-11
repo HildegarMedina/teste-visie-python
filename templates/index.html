@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<main class="wrap">
+
+    <table class="table table-bordered table-striped bg-white">
+        <thead class="bg-primary text-white">
+            <tr>
+                <td>Nome</td>
+                <td>Data de admissão</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in persons %}
+            <tr>
+                <td>{{ person.0.split(" ")[0] }}</td>
+                <td>{{ person.1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</main>
+{% endblock %}
